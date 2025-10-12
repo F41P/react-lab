@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import Product from './Product';
 import Addform from './Product/Addform';
+import { useEffect } from 'react';
 
 let currentProductId = 9;
 
@@ -14,6 +15,7 @@ export default function Home() {
       setProducts([...products, newProduct]);
     }
 
+    useEffect(() => {
     async function getProducts() {
       const products = await axios.get(
         'https://68e9f962f1eeb3f856e5959c.mockapi.io/data'
@@ -22,6 +24,7 @@ export default function Home() {
     }
 
     getProducts();
+    }, []);
 
     return (
       <>
