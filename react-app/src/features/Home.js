@@ -5,9 +5,11 @@ import Product from './Product';
 import Addform from './Product/Addform';
 import { useEffect } from 'react';
 
+import styled from 'styled-components';
+
 let currentProductId = 9;
 
-export default function Home() {
+function Home() {
     const [products, setProducts] = useState([]);
 
     function addProduct(product) {
@@ -44,3 +46,14 @@ export default function Home() {
     </>
     )
 }
+
+export default styled(Home)`
+  .Home__products {
+    display: flex;
+    flex-wrap: wrap;
+
+    list-style-type: none;
+    padding: 0;
+    margin: 0 -12px;
+  }
+`;
