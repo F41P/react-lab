@@ -1,22 +1,29 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { addProduct } from './actions'; 
 
-function Addform({ addProduct }) {
-    const [ name, setName ] = useState('');
-    const [ imageURL, setImageURL ] = useState('');
-    const [ type, setType ] = useState('');
+function AddForm() {
+  const [name, setName] = useState('');
+  const [imageURL, setImageURL] = useState('');
+  const [type, setType] = useState('');
 
-    function onSubmit(event) {
-        event.preventDefault();
-        addProduct({ name, type, imageURL });
-    }
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    return(
+  function onSubmit(event) {
+    event.preventDefault();
+    dispatch(addProduct({ name, type, imageURL }));
+    navigate('/');
+  }
+
+  return (
     <>
-    <h1>Add Product</h1>
-    <form id="create-form" onSubmit={onSubmit}>
+      <h1>Add Product</h1>
+      <form id="create-form" onSubmit={onSubmit}>
         <div className="input-group">
-        <label htmlFor="name">Name</label>
-        <input
+          <label htmlFor="name">Name</label>
+          <input
             name="name"
             type="text"
             id="name"
@@ -25,9 +32,9 @@ function Addform({ addProduct }) {
           />
         </div>
 
-        <div className=" input-group">
-        <label htmlFor="imageURL">Image URL</label>
-        <input
+        <div className="input-group">
+          <label htmlFor="imageURL">Image URL</label>
+          <input
             name="imageURL"
             type="text"
             id="imageURL"
@@ -36,9 +43,9 @@ function Addform({ addProduct }) {
           />
         </div>
 
-        <div className=" input-group">
-        <label htmlFor="type">Type</label>
-        <input
+        <div className="input-group">
+          <label htmlFor="type">Type</label>
+          <input
             name="type"
             type="text"
             id="type"
@@ -46,10 +53,12 @@ function Addform({ addProduct }) {
             onChange={(event) => setType(event.target.value)}
           />
         </div>
-        <button type="submit">Add product</button>
-    </form>
+
+        <button type="submit">Add Product</button>
+      </form>
     </>
-    );
+  );
 }
 
-export default Addform;
+
+export default AddForm;

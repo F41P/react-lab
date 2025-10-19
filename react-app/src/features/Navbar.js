@@ -1,11 +1,12 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 function Navbar() {
   return (
     <header>
-      <a href="/" className="brand">
+      <Link to="/" className="brand">
         Trendie
-      </a>
+      </Link>
       <a href="/create-product">Create product</a>
     </header>
   );

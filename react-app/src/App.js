@@ -3,31 +3,33 @@ import Container from './features/Container';
 import Home from './features/Home';
 import GlobalStyle from './features/GlobalStyle';
 import { Route, Routes } from 'react-router-dom';
-import AddForm from './features/Product/Addform';
+import AddForm from './features/Product/AddForm';
 import UpdateForm from './features/Product/UpdateForm';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchProducts } from './features/Product/actions';
 
 let currentProductId = 9;
 
 function App() {
-
-  const [products, setProducts] = useState([]);
+  const products = useSelector(((state) => state.products));
+  const dispatch = useDispatch();
 
   useEffect(() => {
     async function getProducts() {
       const products = await axios.get(
         'https://68e9f962f1eeb3f856e5959c.mockapi.io/data'
       );
-      setProducts(products.data);
+      dispatch(fetchProducts(products.data));
     }
     getProducts();
   }, []);
 
-  function addProduct(product) {
-    const newProduct = { id: currentProductId++, ...product };
-    setProducts([...products, newProduct]);
-  }
+function addProduct(product) {
+  const newProduct = { id: currentProductId++, ...product };
+  dispatch(addProduct(newProduct)); 
+}
 
   return (
     <>
